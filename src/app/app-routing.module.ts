@@ -5,7 +5,7 @@ import { PullRequestCardComponent } from './pull-request-card/pull-request-card.
 
 const routes: Routes = [
  {
-    path:'pullrequestcard-page',
+    path:'pullrequestcard-page/:title/:username/:number',
     component:PullRequestCardComponent
  },
  {

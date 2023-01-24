@@ -6,6 +6,8 @@ import { HeaderComponent } from './header/header.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PullRequestCardComponent } from './pull-request-card/pull-request-card.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -13,13 +15,17 @@ import { PullRequestCardComponent } from './pull-request-card/pull-request-card.
     HeaderComponent,
     DashboardComponent,
     PullRequestCardComponent
-  ],
+  ],  
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    PullRequestCardComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

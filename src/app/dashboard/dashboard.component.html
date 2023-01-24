@@ -1,22 +1,40 @@
 <div class="container-fuild">
     <div class="card">
         <div class="card-header">
-            <form>
+            <form #repoform="ngForm" (ngSubmit)="getPulls(repoform.value)">
+       
                 <div class="form-row align-items-center">
+    
                   <div class="col-sm-3 my-1">
-                    <label class="sr-only" for="inlineFormInputName">User Name</label>
-                    <input type="text" class="form-control" id="inlineFormInputName" placeholder="Username">
+                    <label class="sr-only" for="inlineFormInputName">Owner Name</label>
+                    <input  type="text" class="form-control" name="ownername" placeholder="Owner name" ngModel #ownername="ngModel">
                   </div>
-                  <div class="col-sm-3 my-1">
-                    <label class="sr-only" for="inlineFormInputGroupUsername">Repository Link</label>
+                  <!-- <div class="col-sm-3 my-1">
+                    <label class="sr-only" for="inlineFormInputGroupUsername">Repo Name</label>
                     <div class="input-group">
-                      <div class="input-group-prepend">
-                        <!-- <div class="input-group-text">@</div> -->
-                      </div>
-                      <input type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="Repository Link">
+                      
+                      <input  type="text" class="form-control" name="reponame"  placeholder="Repository name" ngModel #reponame="ngModel">
                     </div>
+                  </div> -->
+
+                  <div class="col-sm-3 my-1">
+                    <label class="sr-only" for="inlineFormInputName" >Access Token</label>
+                    <input  (blur)="getRepos(ownername.value,token.value)" type="text"  class="form-control" name="token" 
+                    placeholder="Access Key for private repos" ngModel #token="ngModel">
+                   
                   </div>
+                  <div class="col-sm-3 my-1">
                   
+                    <select class="form-select" name="reponame" #reponame (change)="getRepoNames(reponame.value)" ngModel >
+                      <option value="">Select repository</option>
+                      <option *ngFor="let item of repoList" value="{{item.name}}">
+                          <div class="repo-list">
+                            <span>{{item.name}} -> </span>
+                            <span>{{item.visibility}}</span> 
+                          </div>
+                      </option>
+                    </select>
+                </div>
                   <div class="col-auto my-1">
                     <button type="submit" class="btn btn-primary bg-dark">Submit</button>
                   </div>
@@ -26,41 +44,30 @@
         <div class="card-body">
             <table class="table table-striped">
                 <thead>
-                  <tr>
+                  <tr> 
                     <th scope="col">Sr</th>
                     <th scope="col">Pull requests</th>
-                    <th scope="col">Repository</th>
                     <th scope="col">Created by</th>
-                    <th scope="col">Date & Time</th>
                     <th scope="col">Reviewer</th>
-                    
-                    
+                    <th scope="col">Comment</th>
+                    <th scope="col">Date & Time</th>
+                    <th scope="col">State</th>    
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td><a routerLink="pullrequestcard-page">Mark</a></td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>17-01-2022</td>
-                    <td>No reviewer</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td><a routerLink="pullrequested-page">Jacob</a></td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>17-01-2022</td>
-                    <td>No reviewer</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td><a routerLink="pullrequested-page">Peter</a></td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                    <td>17-01-2022</td>
-                    <td>No reviewer</td>
+                  <tr *ngFor="let repodata of getPullList; index as i">
+                    <th scope="row"> {{i+1}}</th>
+                    <td><a routerLink="pullrequestcard-page/{{repodata.title}}/{{username}}/{{repodata.number}}">{{repodata.title}}</a></td>
+                    <td>{{repodata.user.login}}</td>
+                    <td>
+                      <p *ngFor="let item of repodata.requested_reviewers">
+                        {{item.login}},
+                      </p>
+                    </td>
+                    <td style=" white-space: nowrap; overflow: hidden !important; text-overflow: ellipsis;
+                    max-width: 50ch;">{{repodata.body}}</td>
+                    <td>{{repodata.created_at | date:'medium'}}</td>
+                    <td>{{repodata.state}}</td>
                   </tr>
                 </tbody>
               </table>

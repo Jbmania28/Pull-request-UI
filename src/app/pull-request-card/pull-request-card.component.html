@@ -1,1 +1,136 @@
-<p>pull-request-card works!</p>
+<div class="container-fluid " >
+  <div *ngFor="let item of timeLineData; let i = index">
+    
+       <div *ngIf="i==0">
+
+        <div class="card-header " *ngIf="item.author">
+          <div class=" text-center"> 
+          <h4>{{cardTitle}}</h4>
+           <span>by <strong>{{item.author?item.author.name : item.user.login}}</strong></span>
+          <span>{{item.author ? (item.author.date | date: 'medium') : (item.created_at | date: 'medium')}}</span>
+          <p>{{item.message}}</p>
+        </div>
+         </div> 
+       </div>
+        
+        <!-- card body -->
+        <div class="container" *ngIf="i >= 1">
+          <!-- Card body for owner -->
+          <div *ngIf="item.author_association == 'OWNER'">
+          <div class="card">
+            <h5 class="card-header" > 
+              <div class="user-info d-flex">
+                <div class="user-name">
+                <span style="font-size:.9rem;"><img src="{{item.user.avatar_url}}" alt="avatar"/><strong>{{item.user ? item.user.login : item.actor.login}}</strong></span>
+                  <span id="comment">{{item.state ? item.state : item.event}}</span>    
+              </div>
+                 <div class="time-state">
+                
+                    <span style = "text-align: right;">{{item.submitted_at ? (item.submitted_at | date:'medium') : item.created_at ? 
+                      (item.created_at | date:'medium') : (item.updated_at | date : 'medium')}}</span>
+                 </div>
+                </div>
+                </h5>
+            <div class="card-body">
+              <p class="card-text">{{item.body}}</p>
+              
+            </div>
+          </div>
+        </div>
+               <!-- Card body for Contributor -->   
+        <div *ngIf="item.author_association == 'CONTRIBUTOR'">
+          <div class="card">
+            <h5 class="card-header" > 
+              <div class="user-info d-flex">
+                <div class="user-name">
+                <span style="font-size:.9rem;"><img src="{{item.user.avatar_url}}" alt="avatar"/><strong> {{item.user ? item.user.login : item.actor.login}}</strong></span>
+                  <span id="comment">{{item.state ? item.state : item.event}}</span>    
+              </div>
+                 <div class="time-state">
+                
+                    <span style = "text-align: right;">{{item.submitted_at ? (item.submitted_at | date:'medium') : item.created_at ? 
+                      (item.created_at | date:'medium') : (item.updated_at | date : 'medium')}}</span>
+                 </div>
+                </div>
+                </h5>
+            <div class="card-body">
+              <p class="card-text">{{item.body}}</p>
+              
+            </div>
+          </div>
+        </div>
+                    <!-- Card for collaborator -->
+
+        <div *ngIf="item.author_association == 'COLLABORATOR'">
+        
+          <div class="card">
+            <h5 class="card-header" > 
+              <div class="user-info d-flex">
+                <div class="user-name">
+                <span style="font-size:.9rem;"><img src="{{item.user.avatar_url}}" alt="avatar"/><strong> {{item.user ? item.user.login : item.actor.login}}</strong></span>
+                  <span id="comment">{{item.state ? item.state : item.event}}</span>    
+              </div>
+                 <div class="time-state">
+                
+                    <span style = "text-align: right;">{{item.submitted_at ? 
+                      (item.submitted_at | date: 'medium') : (item.created_at | date: 'medium') }}</span>
+                 </div>
+                </div>
+                </h5>
+            <div class="card-body">
+              <p class="card-text">{{item.body}}</p>
+              
+            </div>
+          </div>
+        </div>
+                   <!-- Card body for Author -->   
+        <div *ngIf="item.author">
+        
+          <div class="card">
+            <h5 class="card-header" > 
+              <div class="user-info d-flex">
+                <div class="user-name">
+                <span style="font-size:.9rem;"><img src="" alt=""/><strong> {{item.author.name}}</strong></span>
+                  <span id="comment">{{item.event}}</span>    
+              </div>
+                 <div class="time-state">
+                
+                    <span style = "text-align: right;">{{item.author.date | date:"medium"}}</span>
+                 </div>
+                </div>
+                </h5>
+            <div class="card-body">
+              <p class="card-text">{{item.message}}</p>
+              
+            </div>
+          </div>
+        </div>
+                   <!-- Card body for actor -->   
+              
+        <div *ngIf="item.actor">
+         
+          <div class="card">
+            <h5 class="card-header" > 
+              <div class="user-info d-flex">
+                <div class="user-name">
+                <span style="font-size:.9rem;"><img src="{{item.actor.avatar_url}}" alt="avatar"/><strong> {{item.actor.login}}</strong></span>
+                  <span id="comment">{{item.event}}</span>    
+              </div>
+                 <div class="time-state">
+                
+                    <span style = "text-align: right;">{{item.created_at ?(item.created_at | date:'medium') :
+                       item.submitted_at ? (item.submitted_at | date:'medium') : (item.updated_at | date:'medium') }}</span>
+                 </div>
+                </div>
+                </h5>
+            <!-- <div class="card-body">
+              <p class="card-text">{{timeLineData[0].message}}</p>
+            </div> -->
+          </div>
+        </div>
+
+
+      </div> 
+      </div>  
+    
+</div>

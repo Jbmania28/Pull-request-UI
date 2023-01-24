@@ -1,0 +1,56 @@
+.container-fluid
+{
+   margin-top: 2rem;
+}
+
+.container{
+   margin-top:1rem;
+   margin-bottom: 1rem;
+}
+
+.card-header span 
+{
+   margin:.3rem;
+}
+
+.container {
+   text-align: left;
+}
+
+
+
+.card-title
+{
+   font-size: .8rem;
+   font-weight: bold;
+}
+
+.user-info
+{
+   justify-content: space-between;
+}
+
+.user-name #comment
+{
+   font-size: .8rem;
+   color:rgb(150, 153, 156);
+}
+
+.user-name img{
+   width:30px;
+   height:auto;
+   border-radius: 50%;
+   margin-right:.8rem;
+}
+.time-state
+{
+   font-size: .8rem;
+   color:rgb(150, 153, 156);
+   display: inline-flex;
+}
+
+.card-header 
+{
+   padding:.4rem; 
+}
+
